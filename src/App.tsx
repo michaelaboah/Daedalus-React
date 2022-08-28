@@ -16,7 +16,7 @@ export const App: React.FC<Props> = () => {
       setAccessToken(accessToken);
       setLoading(false);
     });
-  });
+  }, []);
 
   if (loading) {
     return <div>loading...</div>;

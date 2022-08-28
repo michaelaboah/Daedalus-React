@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { setAccessToken } from '../accessToken'
-import { MeDocument, useLoginMutation } from '../generated/graphql'
+import { MeDocument, MeQuery, useLoginMutation } from '../generated/graphql'
 
 export const Login: React.FC = () => {
     const [email, setemail] = useState("")
@@ -18,9 +18,11 @@ export const Login: React.FC = () => {
                     if (!data) {
                         return null
                     }
-                    store.writeQuery({
+                    store.writeQuery<MeQuery>({
                         query: MeDocument,
-                        data: data.loginUser.user
+                        data: {
+                            me: data.loginUser.user,
+                        }
                     })
                     return data.loginUser.user
                 }
